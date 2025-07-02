@@ -1,0 +1,349 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>The Ultimate Dividend Infographic</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+    <!-- Chosen Palette: Brilliant Blues -->
+    <!-- Application Structure Plan: The infographic follows a logical narrative flow, starting with a bold hook, then progressing from the foundational "What & Why" to the practical "How & When," and finally to advanced "Analysis & Strategy." Sections are designed as distinct visual cards to break down complex information. The narrative structure was chosen to build knowledge progressively, making the topic accessible for beginners while providing valuable, data-backed insights for all, telling a coherent story with the data. -->
+    <!-- Visualization & Content Choices:
+        - Report Info: Core Rationale (Sec III) -> Goal: Compare -> Viz/Presentation: Two-column HTML/CSS layout with Unicode icons. -> Justification: Directly contrasts the two core strategies (paying vs. not paying) for easy comparison. -> Library/Method: HTML/CSS.
+        - Report Info: Dividend Calendar (Sec V) -> Goal: Organize -> Viz/Presentation: HTML/CSS flowchart. -> Justification: Translates the list of dates into an intuitive, chronological process flow, which is more digestible than text. -> Library/Method: HTML/CSS. (CONFIRMING NO SVG/Mermaid).
+        - Report Info: Compounding Effect (Sec VI) -> Goal: Change -> Viz/Presentation: Line Chart. -> Justification: The ideal visualization to show growth over time and dramatically illustrate the accelerating power of reinvesting dividends versus taking cash. -> Library/Method: Chart.js (Canvas).
+        - Report Info: Tax Rules (Sec VIII) -> Goal: Compare -> Viz/Presentation: Grouped Bar Chart. -> Justification: Directly compares the significant tax rate differences between Qualified and Ordinary dividends across income brackets, making the financial impact immediately clear. -> Library/Method: Chart.js (Canvas).
+        - Report Info: Payout Ratios (Sec IX) -> Goal: Compare -> Viz/Presentation: Donut Chart. -> Justification: Effectively shows the composition of earnings (paid vs. retained) and compares typical payout ratios across different industries in a single, compelling visual. -> Library/Method: Chart.js (Canvas).
+    -->
+    <!-- CONFIRMATION: NO SVG graphics used. NO Mermaid JS used. -->
+    <style>
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: #EBF4FF;
+        }
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 600px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 300px;
+            max-height: 400px;
+        }
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 350px;
+            }
+        }
+        .material-card {
+            background-color: white;
+            border-radius: 1rem;
+            padding: 1.5rem;
+            box-shadow: 0 10px 15px -3px rgb(0 0 0 / 0.1), 0 4px 6px -4px rgb(0 0 0 / 0.1);
+            margin-bottom: 2rem;
+        }
+        h2 {
+            font-size: 2.25rem;
+            font-weight: 800;
+            color: #004AAD;
+            margin-bottom: 1rem;
+            text-align: center;
+        }
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: #0062E3;
+            margin-bottom: 0.75rem;
+        }
+    </style>
+</head>
+<body class="text-gray-700">
+
+    <div class="container mx-auto p-4 md:p-8 max-w-5xl">
+
+        <section class="text-center my-12">
+            <h1 class="text-5xl md:text-7xl font-extrabold text-[#004AAD] mb-4">A Share of the Profits</h1>
+            <p class="text-xl md:text-2xl text-[#0062E3] max-w-3xl mx-auto">An investor's guide to what dividends are, how they work, and why they are a powerful tool for building wealth.</p>
+        </section>
+
+        <section class="material-card">
+            <h2>The "Why": To Pay or To Reinvest?</h2>
+            <p class="text-center text-gray-600 mb-8">A company's dividend policy is a strategic choice that sends a powerful message about its priorities. It's a balance between rewarding shareholders today and investing for tomorrow's growth.</p>
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-8">
+                <div class="bg-blue-50 p-6 rounded-lg border border-blue-200">
+                    <h3>Reasons to Pay Dividends</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start"><span class="text-2xl mr-3 text-[#0062E3]">&#9989;</span><span><strong class="font-semibold">Signal of Strength:</strong> A public declaration of financial health and confidence in future profits.</span></li>
+                        <li class="flex items-start"><span class="text-2xl mr-3 text-[#0062E3]">&#129297;</span><span><strong class="font-semibold">Attract Loyal Investors:</strong> Income-seekers, like retirees, value steady payments and provide a stable shareholder base.</span></li>
+                        <li class="flex items-start"><span class="text-2xl mr-3 text-[#0062E3]">&#128272;</span><span><strong class="font-semibold">Impose Discipline:</strong> A commitment to pay cash forces management to be efficient and avoid wasteful spending.</span></li>
+                    </ul>
+                </div>
+                <div class="bg-gray-50 p-6 rounded-lg border border-gray-200">
+                    <h3>Reasons Not to Pay Dividends</h3>
+                    <ul class="space-y-4">
+                        <li class="flex items-start"><span class="text-2xl mr-3 text-gray-600">&#128640;</span><span><strong class="font-semibold">The Growth Imperative:</strong> Reinvesting every dollar to fuel rapid growth in hopes of a much higher stock price later.</span></li>
+                        <li class="flex items-start"><span class="text-2xl mr-3 text-gray-600">&#9888;&#65039;</span><span><strong class="font-semibold">Financial Distress:</strong> A dividend cut is often a red flag, signaling a need to conserve cash to survive.</span></li>
+                        <li class="flex items-start"><span class="text-2xl mr-3 text-gray-600">&#128176;</span><span><strong class="font-semibold">Strategic Conservation:</strong> Saving cash for a major acquisition or project.</span></li>
+                    </ul>
+                </div>
+            </div>
+        </section>
+
+        <section class="material-card">
+            <h2>The Dividend Calendar: How You Get Paid</h2>
+            <p class="text-center text-gray-600 mb-10">Receiving a dividend follows a precise, four-step timeline set by the company and the stock exchange. Missing the key "Ex-Dividend Date" means you miss the payment.</p>
+            <div class="relative w-full">
+                <div class="absolute top-1/2 left-0 w-full h-1 bg-[#A9D1FB] -translate-y-1/2"></div>
+                <div class="relative flex justify-between items-start">
+                    <div class="w-1/4 text-center">
+                        <div class="relative mb-2">
+                            <div class="w-8 h-8 mx-auto bg-[#004AAD] rounded-full text-white flex items-center justify-center font-bold z-10 relative">1</div>
+                        </div>
+                        <h4 class="font-bold text-[#004AAD]">Declaration Date</h4>
+                        <p class="text-sm text-gray-600">The board announces the dividend.</p>
+                    </div>
+                    <div class="w-1/4 text-center">
+                        <div class="relative mb-2">
+                            <div class="w-8 h-8 mx-auto bg-[#0062E3] rounded-full text-white flex items-center justify-center font-bold z-10 relative">2</div>
+                        </div>
+                        <h4 class="font-bold text-[#0062E3]">Ex-Dividend Date</h4>
+                        <p class="text-sm text-gray-600">The critical cutoff. You must own the stock *before* this date.</p>
+                    </div>
+                    <div class="w-1/4 text-center">
+                        <div class="relative mb-2">
+                            <div class="w-8 h-8 mx-auto bg-[#5CA0F5] rounded-full text-white flex items-center justify-center font-bold z-10 relative">3</div>
+                        </div>
+                        <h4 class="font-bold text-[#5CA0F5]">Record Date</h4>
+                        <p class="text-sm text-gray-600">The company checks its records for eligible owners.</p>
+                    </div>
+                    <div class="w-1/4 text-center">
+                        <div class="relative mb-2">
+                            <div class="w-8 h-8 mx-auto bg-[#A9D1FB] rounded-full text-black flex items-center justify-center font-bold z-10 relative">4</div>
+                        </div>
+                        <h4 class="font-bold text-[#A9D1FB]">Payment Date</h4>
+                        <p class="text-sm text-gray-600">The cash arrives in your account.</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <section class="material-card">
+            <h2>The Power of Compounding</h2>
+            <p class="text-center text-gray-600 mb-8">The choice between taking dividend cash or reinvesting it can dramatically change your returns over time. This chart shows the growth of a $10,000 investment over 30 years, assuming 5% annual stock growth. Reinvesting a 3% dividend creates a "snowball effect" that results in significantly greater wealth.</p>
+            <div class="chart-container">
+                <canvas id="compoundingChart"></canvas>
+            </div>
+        </section>
+
+        <section class="material-card">
+            <h2>Uncle Sam's Share: Dividend Taxes</h2>
+            <p class="text-center text-gray-600 mb-8">Not all dividends are taxed equally. "Qualified" dividends, from stocks held for a minimum period, are taxed at much lower rates than "Ordinary" dividends. This difference provides a major tax advantage for long-term investors.</p>
+            <div class="chart-container">
+                <canvas id="taxChart"></canvas>
+            </div>
+        </section>
+
+        <section class="material-card">
+            <h2>The Investor's Toolkit</h2>
+            <p class="text-center text-gray-600 mb-8">Analyzing a dividend requires more than just looking at the yield. A smart investor uses a toolkit of metrics to assess a dividend's quality and safety. Payout Ratio is a key measure of sustainability.</p>
+            <h3>Typical Payout Ratios by Industry</h3>
+            <p class="text-center text-gray-600 mb-8">The portion of profits a company pays out as dividends varies widely by industry. Mature, stable sectors like Utilities pay out more, while growth-focused sectors like Technology retain more cash to fuel expansion.</p>
+            <div class="chart-container h-[300px] md:h-[350px]">
+                <canvas id="payoutRatioChart"></canvas>
+            </div>
+        </section>
+
+    </div>
+
+    <script>
+        const brilliantBlues = {
+            dark: '#004AAD',
+            primary: '#0062E3',
+            light: '#5CA0F5',
+            lighter: '#A9D1FB',
+            lightest: '#EBF4FF'
+        };
+
+        const wrapLabel = (str) => {
+            const maxLength = 16;
+            if (str.length <= maxLength) return str;
+            const words = str.split(' ');
+            const lines = [];
+            let currentLine = '';
+            for (const word of words) {
+                if ((currentLine + word).length > maxLength) {
+                    lines.push(currentLine.trim());
+                    currentLine = '';
+                }
+                currentLine += word + ' ';
+            }
+            lines.push(currentLine.trim());
+            return lines;
+        };
+        
+        const tooltipTitleCallback = (tooltipItems) => {
+            const item = tooltipItems[0];
+            let label = item.chart.data.labels[item.dataIndex];
+            if (Array.isArray(label)) {
+                return label.join(' ');
+            }
+            return label;
+        };
+
+        const defaultChartOptions = {
+            responsive: true,
+            maintainAspectRatio: false,
+            plugins: {
+                legend: {
+                    position: 'bottom',
+                },
+                tooltip: {
+                    callbacks: {
+                        title: tooltipTitleCallback
+                    }
+                }
+            },
+        };
+        
+        (() => {
+            const years = 30;
+            const initialInvestment = 10000;
+            const dividendYield = 0.03;
+            const stockGrowth = 0.05;
+            const labels = Array.from({ length: years + 1 }, (_, i) => `Year ${i}`);
+            
+            const reinvestData = [];
+            let reinvestValue = initialInvestment;
+            for (let i = 0; i <= years; i++) {
+                reinvestData.push(reinvestValue);
+                reinvestValue = (reinvestValue * (1 + dividendYield)) * (1 + stockGrowth);
+            }
+            
+            const noReinvestData = [];
+            let noReinvestValue = initialInvestment;
+            for (let i = 0; i <= years; i++) {
+                noReinvestData.push(noReinvestValue);
+                noReinvestValue = noReinvestValue * (1 + stockGrowth);
+            }
+
+            new Chart(document.getElementById('compoundingChart'), {
+                type: 'line',
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: 'Dividends Reinvested',
+                            data: reinvestData,
+                            borderColor: brilliantBlues.primary,
+                            backgroundColor: 'rgba(0, 98, 227, 0.1)',
+                            fill: true,
+                            tension: 0.4
+                        },
+                        {
+                            label: 'Dividends Taken as Cash',
+                            data: noReinvestData,
+                            borderColor: brilliantBlues.lighter,
+                            backgroundColor: 'rgba(169, 209, 251, 0.1)',
+                            fill: true,
+                            tension: 0.4
+                        }
+                    ]
+                },
+                options: {
+                    ...defaultChartOptions,
+                    scales: {
+                        y: {
+                            ticks: {
+                                callback: value => '$' + (value / 1000).toFixed(0) + 'k'
+                            }
+                        }
+                    }
+                }
+            });
+        })();
+
+        (() => {
+            const taxData = {
+                labels: ['Up to $48k', '$48k - $103k', '$103k - $533k', '$533k +'],
+                datasets: [
+                    {
+                        label: 'Qualified Dividend Tax Rate',
+                        data: [0, 15, 15, 20],
+                        backgroundColor: brilliantBlues.primary,
+                        borderRadius: 4,
+                    },
+                    {
+                        label: 'Ordinary Dividend Tax Rate',
+                        data: [12, 22, 35, 37],
+                        backgroundColor: brilliantBlues.lighter,
+                        borderRadius: 4,
+                    }
+                ]
+            };
+            new Chart(document.getElementById('taxChart'), {
+                type: 'bar',
+                data: taxData,
+                options: {
+                    ...defaultChartOptions,
+                    scales: {
+                        x: {
+                            title: { display: true, text: 'Taxable Income Bracket (Single Filer)' }
+                        },
+                        y: {
+                            title: { display: true, text: 'Tax Rate (%)' },
+                            ticks: {
+                                callback: value => value + '%'
+                            }
+                        }
+                    }
+                }
+            });
+        })();
+
+        (() => {
+            const payoutData = {
+                labels: ['Utilities', 'Consumer Staples', 'Technology', 'REITs'],
+                datasets: [{
+                    label: 'Payout Ratio',
+                    data: [70, 50, 35, 90],
+                    backgroundColor: [
+                        brilliantBlues.dark,
+                        brilliantBlues.primary,
+                        brilliantBlues.light,
+                        brilliantBlues.lighter,
+                    ],
+                    hoverOffset: 4
+                }]
+            };
+            new Chart(document.getElementById('payoutRatioChart'), {
+                type: 'doughnut',
+                data: payoutData,
+                options: {
+                    ...defaultChartOptions,
+                    plugins: {
+                        ...defaultChartOptions.plugins,
+                        tooltip: {
+                            callbacks: {
+                                title: tooltipTitleCallback,
+                                label: function(context) {
+                                    let label = context.label || '';
+                                    if (label) {
+                                        label += ': ';
+                                    }
+                                    if (context.parsed !== null) {
+                                        label += context.parsed + '% of earnings';
+                                    }
+                                    return label;
+                                }
+                            }
+                        }
+                    }
+                }
+            });
+        })();
+    </script>
+</body>
+</html>
